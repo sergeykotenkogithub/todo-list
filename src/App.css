@@ -29,5 +29,9 @@
 .button-wrapper {
 	display: flex;
 	justify-content: center;
-	padding-top: 25px;
+	padding: 25px 0;
+}
+
+.subtitle {
+	text-align: center;
 }

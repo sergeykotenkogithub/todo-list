@@ -2,7 +2,6 @@ import { useState } from 'react'
 import './App.css'
 import remove from './image/remove.svg'
 import edit from './image/edit.svg'
-import { TestUpload } from './components/TestUpload'
 import { Title } from './components/common/Title'
 import { Button } from './components/UI/button/Button'
 import { Modal } from './components/UI/Modal/Modal'
@@ -56,7 +55,7 @@ export const App = () => {
 		// 	...editTask,
 		// }))
 		const newPosts = todo.map(post =>
-			post.id === editTask.id ? { ...post, ...editTask } : post
+			post.id === e.id ? { ...post, ...e } : post
 		)
 
 		// console.log(newPosts)
@@ -83,17 +82,8 @@ export const App = () => {
 				</div>
 
 				<div>
-					<h2> Список дел : </h2>
+					<h2 className='subtitle'> Список дел : </h2>
 				</div>
-
-				<h2> ИЗМЕНИТЬ!!!!!!!!! </h2>
-
-				<TodoForm
-					create={editNew}
-					edit={true}
-					editElement={editTask}
-					setEditTask={setEditTask}
-				/>
 			</div>
 
 			<Modal visible={modal} setVisible={setModal}>
