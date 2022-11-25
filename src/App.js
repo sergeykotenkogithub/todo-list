@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import remove from './image/remove.svg'
 import edit from './image/edit.svg'
@@ -13,7 +13,7 @@ export const App = () => {
 	const [editTask, setEditTask] = useState({
 		title: '',
 		description: '',
-		data: '',
+		data: ' ',
 		fileName: '',
 		completed: false,
 	})
@@ -69,11 +69,32 @@ export const App = () => {
 		setEditForm(false)
 	}
 
+	const hiddenFileInput = useRef(null)
+
+	const handleChange = event => {
+		const fileUploaded = event.target.files[0].name
+		console.log(fileUploaded)
+	}
+
+	const handleClick = event => {
+		hiddenFileInput.current.click()
+	}
+
 	return (
 		<div className='App'>
 			{/* <TestUpload /> */}
 
 			<Title title={'Todo List'} />
+
+			{/* <div class='input__wrapper'>
+				<input
+					type='file'
+					name='file'
+					id='input__file'
+					class='input input__file'
+				/>
+				<label for='input__file'>Выберите файл</label>
+			</div> */}
 
 			<div>
 				<div className='button-wrapper'>

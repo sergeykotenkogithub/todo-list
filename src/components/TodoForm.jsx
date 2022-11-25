@@ -1,7 +1,17 @@
-import { useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { Button } from './UI/button/Button'
 
 export const TodoForm = ({ create, edit, editElement, setEditTask }) => {
 	console.log('111', editElement)
+
+	const [ed, setEd] = useState({})
+
+	// useEffect(() => {
+	// 	// setEd({ ...editElement })
+	// 	console.log('wwwwwwww')
+	// }, editElement)
+
+	// console.log('neeeeeeeeeeeeeeww', ed)
 
 	const [tasks, setTasks] = useState({
 		// title: '',
@@ -11,6 +21,11 @@ export const TodoForm = ({ create, edit, editElement, setEditTask }) => {
 		fileName: editElement ? editElement.fileName : '',
 		completed: false,
 	})
+	const hiddenFileInput = useRef(null)
+	const handleClick = event => {
+		event.preventDefault()
+		hiddenFileInput.current.click()
+	}
 
 	const createTodo = e => {
 		e.preventDefault()
@@ -35,6 +50,18 @@ export const TodoForm = ({ create, edit, editElement, setEditTask }) => {
 		// setTodo([...todo, { ...tasks, id: Date.now(), completed: false }])
 	}
 
+	useEffect(() => {
+		console.log('wwwwwwwwwwwadasdsa', tasks)
+		console.log('hkljk;l,;', editElement)
+		if (!editElement?.fileName) {
+			const aaa = { ...editElement, fileName: '' }
+			console.log('wwwwwSda', aaa)
+			setTasks({ ...editElement, fileName: '' })
+		} else {
+			setTasks({ ...editElement })
+		}
+	}, [editElement])
+
 	return (
 		<div>
 			<form>
@@ -49,7 +76,7 @@ export const TodoForm = ({ create, edit, editElement, setEditTask }) => {
 								setTasks({
 									...tasks,
 									title: e.target.value,
-									id: editElement.id,
+									// id: editElement.id,
 								})
 							} else {
 								setTasks({ ...tasks, title: e.target.value })
@@ -67,7 +94,7 @@ export const TodoForm = ({ create, edit, editElement, setEditTask }) => {
 								setTasks({
 									...tasks,
 									description: e.target.value,
-									id: editElement.id,
+									// id: editElement.id,
 								})
 							} else {
 								setTasks({ ...tasks, description: e.target.value })
@@ -86,7 +113,7 @@ export const TodoForm = ({ create, edit, editElement, setEditTask }) => {
 								setTasks({
 									...tasks,
 									data: e.target.value,
-									id: editElement.id,
+									// id: editElement.id,
 								})
 							} else {
 								setTasks({ ...tasks, data: e.target.value })
@@ -96,8 +123,11 @@ export const TodoForm = ({ create, edit, editElement, setEditTask }) => {
 				</div>
 				<div>
 					<p>Прикрепить файл</p>
+					<button onClick={handleClick}>Upload a file</button>
 					<input
 						type='file'
+						ref={hiddenFileInput}
+						style={{ display: 'none' }}
 						// onChange={e =>
 						// 	setTasks({ ...tasks, fileName: e.target.files[0].name })
 						// }
@@ -106,7 +136,7 @@ export const TodoForm = ({ create, edit, editElement, setEditTask }) => {
 								setTasks({
 									...tasks,
 									fileName: e.target.files[0].name,
-									id: editElement.id,
+									// id: editElement.id,
 								})
 							} else {
 								setTasks({ ...tasks, fileName: e.target.files[0].name })
