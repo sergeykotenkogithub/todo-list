@@ -24,3 +24,20 @@
 .completed {
 	background: cornflowerblue;
 }
+
+.field {
+	display: flex;
+}
+
+.field > p:first-child {
+	padding-right: 10px;
+	width: 140px;
+}
+
+.todo {
+	padding-right: 30px;
+}
+
+.editDeleteWrapper {
+	display: flex;
+}
