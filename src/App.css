@@ -1,14 +1,3 @@
-.img {
-	width: 30px;
-	height: 30px;
-	cursor: pointer;
-}
-.todo-wrapper {
-	display: flex;
-	border-bottom: 1px solid;
-	padding: 20px 0;
-}
-
 .todo {
 	padding-right: 50px;
 }
@@ -20,10 +9,6 @@
 .edit-delete-wrapper div {
 	cursor: pointer;
 	height: 30px;
-}
-
-.edit {
-	margin-right: 50px;
 }
 
 .button-wrapper {

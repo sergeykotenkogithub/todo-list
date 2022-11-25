@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Button } from './UI/button/Button'
 
 export const TodoForm = ({ create, edit, editElement, setEditTask }) => {
@@ -13,12 +13,20 @@ export const TodoForm = ({ create, edit, editElement, setEditTask }) => {
 
 	// console.log('neeeeeeeeeeeeeeww', ed)
 
+	// const [tasks, setTasks] = useState({
+	// 	// title: '',
+	// 	title: editElement ? editElement.title : '',
+	// 	description: editElement ? editElement.description : '',
+	// 	data: editElement ? editElement.data : '',
+	// 	fileName: editElement ? editElement.fileName : '',
+	// 	completed: false,
+	// })
 	const [tasks, setTasks] = useState({
 		// title: '',
-		title: editElement ? editElement.title : '',
-		description: editElement ? editElement.description : '',
-		data: editElement ? editElement.data : '',
-		fileName: editElement ? editElement.fileName : '',
+		title: '',
+		description: '',
+		data: '',
+		fileName: '',
 		completed: false,
 	})
 	const hiddenFileInput = useRef(null)
@@ -50,17 +58,51 @@ export const TodoForm = ({ create, edit, editElement, setEditTask }) => {
 		// setTodo([...todo, { ...tasks, id: Date.now(), completed: false }])
 	}
 
-	useEffect(() => {
-		console.log('wwwwwwwwwwwadasdsa', tasks)
-		console.log('hkljk;l,;', editElement)
-		if (!editElement?.fileName) {
-			const aaa = { ...editElement, fileName: '' }
-			console.log('wwwwwSda', aaa)
-			setTasks({ ...editElement, fileName: '' })
-		} else {
-			setTasks({ ...editElement })
-		}
+	const fetchBusinesses = useCallback(() => {
+		return editElement
 	}, [editElement])
+
+	// useEffect(() => {
+	// 	fetchBusinesses()
+	// }, [fetchBusinesses])
+
+	// useEffect(() => {
+	// 	console.log('wwwwwwwwwwwadasdsa', tasks)
+	// 	console.log('hkljk;l,;', editElement)
+	// 	// if (!editElement?.fileName) {
+	// 	// 	const aaa = { ...editElement, fileName: '' }
+	// 	// 	console.log('wwwwwSda', aaa)
+	// 	// 	setTasks({ ...editElement, fileName: '' })
+	// 	// } else {
+	// 	// 	setTasks({ ...editElement })
+	// 	// }
+	// 	if (!editElement?.data) {
+	// 		setTasks({ ...editElement, fileName: '' })
+	// 	} else {
+	// 		setTasks({ ...editElement })
+	// 	}
+	// }, [editElement])
+
+	let aaaw
+
+	useEffect(() => {
+		console.log('hkljk;l,;', editElement)
+		// if (!editElement?.fileName) {
+		// 	const aaa = { ...editElement, fileName: '' }
+		// 	console.log('wwwwwSda', aaa)
+		// 	setTasks({ ...editElement, fileName: '' })
+		// } else {
+		// 	setTasks({ ...editElement })
+		// }
+		// if (!editElement?.data) {
+		// 	setTasks({ ...editElement, fileName: '' })
+		// } else {
+		// 	setTasks({ ...editElement })
+		// }
+		setTasks({ ...editElement })
+	}, [editElement])
+
+	console.log('awww', aaaw)
 
 	return (
 		<div>
@@ -69,8 +111,7 @@ export const TodoForm = ({ create, edit, editElement, setEditTask }) => {
 					<p>Заголовок</p>
 					<input
 						type='text'
-						// value={editElement ? editElement.title : tasks.title}
-						value={tasks.title}
+						value={tasks.title || ''}
 						onChange={e => {
 							if (editElement) {
 								setTasks({
@@ -87,7 +128,7 @@ export const TodoForm = ({ create, edit, editElement, setEditTask }) => {
 				<div>
 					<p>Описание</p>
 					<input
-						value={tasks.description}
+						value={tasks.description || ''}
 						type='text'
 						onChange={e => {
 							if (editElement) {
@@ -98,7 +139,6 @@ export const TodoForm = ({ create, edit, editElement, setEditTask }) => {
 								})
 							} else {
 								setTasks({ ...tasks, description: e.target.value })
-								console.log(tasks)
 							}
 						}}
 					/>
@@ -106,7 +146,7 @@ export const TodoForm = ({ create, edit, editElement, setEditTask }) => {
 				<div>
 					<p>Дата завершения</p>
 					<input
-						value={tasks.data}
+						value={tasks.data || ''}
 						type='date'
 						onChange={e => {
 							if (editElement) {
@@ -145,7 +185,9 @@ export const TodoForm = ({ create, edit, editElement, setEditTask }) => {
 					/>
 				</div>
 
-				<button onClick={createTodo}>Создать</button>
+				<button onClick={createTodo}>
+					{edit ? 'Редактировать' : 'Создать'}{' '}
+				</button>
 			</form>
 		</div>
 	)

@@ -6,6 +6,7 @@ import { Title } from './components/common/Title'
 import { Button } from './components/UI/button/Button'
 import { Modal } from './components/UI/Modal/Modal'
 import { TodoForm } from './components/TodoForm'
+import { TodoItem } from './components/TodoItem'
 
 export const App = () => {
 	const [todo, setTodo] = useState([])
@@ -80,6 +81,14 @@ export const App = () => {
 		hiddenFileInput.current.click()
 	}
 
+	// const changeCheckbox = e => {
+	// 	console.log(e.target.checked)
+	// 	const newPosts = todo.map(post =>
+	// 		post.id === e.id ? { ...post, completed: e.target.checked } : post
+	// 	)
+	// 	console.log(newPosts)
+	// }
+
 	return (
 		<div className='App'>
 			{/* <TestUpload /> */}
@@ -123,38 +132,43 @@ export const App = () => {
 
 			{todo.length ? (
 				todo.map(e => (
-					<div key={e.id}>
-						<div className='todo-wrapper'>
-							<div className='todo'>
-								<p>{e.title}</p>
-								<p>{e.description}</p>
-								<p>{e.data}</p>
-								<p>{e.fileName}</p>
-								<p>{e.completed}</p>
-							</div>
-							<div className='edit-delete-wrapper'>
-								<img
-									onClick={() => editTodo(e)}
-									className='img edit'
-									src={edit}
-									alt='edit'
-								/>
+					<TodoItem
+						task={e}
+						editTodo={editTodo}
+						removeTodo={removeTodo}
+						todo={todo}
+						setTodo={setTodo}
+					/>
+					// <div key={e.id}>
+					// 	<div className='todo-wrapper'>
+					// 		<div className='todo'>
+					// 			<p>{e.title}</p>
+					// 			<p>{e.description}</p>
+					// 			<p>{e.data}</p>
+					// 			<p>{e.fileName}</p>
+					// 			<p>{e.completed}</p>
+					// 		</div>
+					// 		<div className='edit-delete-wrapper'>
+					// 			<img
+					// 				onClick={() => editTodo(e)}
+					// 				className='img edit'
+					// 				src={edit}
+					// 				alt='edit'
+					// 			/>
 
-								<img
-									onClick={() => removeTodo(e)}
-									className='img'
-									src={remove}
-									alt='remove'
-								/>
-							</div>
-						</div>
-					</div>
+					// 			<img
+					// 				onClick={() => removeTodo(e)}
+					// 				className='img'
+					// 				src={remove}
+					// 				alt='remove'
+					// 			/>
+					// 		</div>
+					// 	</div>
+					// </div>
 				))
 			) : (
 				<div> Дел нету. Создайте новое дело </div>
 			)}
-
-			{/* //////////////////////////////////////////////// */}
 
 			{/* <form>
 				<div>
