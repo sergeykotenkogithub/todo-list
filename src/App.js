@@ -17,40 +17,71 @@ export const App = () => {
 		completed: false,
 	})
 
+	/**
+	 * @typedef {Object} Todo
+	 * @property {string} id
+	 * @property {string} title
+	 * @property {string} description
+	 * @property {string} data
+	 * @property {string} fileName,
+	 * @property {boolean} completed,
+	 */
+
+	/**
+	 * useState for modal and form
+	 */
 	const [modal, setModal] = useState(false)
 	const [editForm, setEditForm] = useState(false)
 
+	/**
+	 * remove todo
+	 * @param {Todo} chooseTodo
+	 */
 	const removeTodo = chooseTodo => {
 		setTodo(todo.filter(element => element.id !== chooseTodo.id))
 	}
 
+	/**
+	 * edit todo
+	 * @param {Todo} e
+	 */
 	const editTodo = e => {
-		const wwww = todo.filter(element => element.id === e.id)
-		setEditTask(wwww[0])
+		const edit = todo.filter(element => element.id === e.id)
+		setEditTask(edit[0])
 		setEditForm(true)
 		setModal(true)
 	}
-
+	/**
+	 * Create todo
+	 * @param {Todo} newTodo
+	 */
 	const createTodo = newTodo => {
 		setTodo([...todo, newTodo])
 		setModal(false)
 	}
 
+	/**
+	 * Find the desired todo by id and change to the new properties
+	 * @param {Todo} e
+	 */
 	const editNew = e => {
-		const newTodo = todo.map(post =>
-			post.id === e.id ? { ...post, ...e } : post
+		const newTodo = todo.map(edit =>
+			edit.id === e.id ? { ...edit, ...e } : edit
 		)
 		setTodo(newTodo)
 		setModal(false)
 	}
 
+	/**
+	 * Open Modal and set that it is not editing
+	 */
 	const handleButtonCreate = () => {
 		setModal(true)
 		setEditForm(false)
 	}
 
 	return (
-		<div className='App'>
+		<div className='app'>
 			<Title title={'Todo List'} />
 
 			<div>
@@ -88,7 +119,7 @@ export const App = () => {
 					/>
 				))
 			) : (
-				<div className='notFoundTodo'>
+				<div className='not-found-todo'>
 					{' '}
 					Все задания сделаны. Создайте новое.{' '}
 				</div>

@@ -5,9 +5,16 @@ import { useEffect } from 'react'
 const dayjs = require('dayjs')
 
 export const TodoItem = ({ task, editTodo, removeTodo, todo, setTodo }) => {
+	/**
+	 * Add a plugin to be able to compare the date
+	 */
 	const relativeTime = require('dayjs/plugin/relativeTime')
 	dayjs.extend(relativeTime)
 
+	/**
+	 * Changes the checkbox if the task is completed
+	 * @param {React.ChangeEvent<HTMLInputElement>} e
+	 */
 	const changeCheckbox = e => {
 		const newTodo = todo.map(todo =>
 			todo.id === task.id ? { ...todo, completed: e.target.checked } : todo
@@ -15,6 +22,10 @@ export const TodoItem = ({ task, editTodo, removeTodo, todo, setTodo }) => {
 		setTodo(newTodo)
 	}
 
+	/**
+	 * Check the date today and the date at the task, if the date has already passed, then the field completed is changed
+	 *
+	 */
 	useEffect(() => {
 		if (task.data) {
 			const reg = /ago/.test(dayjs(task.data).fromNow())

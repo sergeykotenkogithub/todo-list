@@ -11,14 +11,21 @@ export const TodoForm = ({ create, edit, editElement, setEditTask }) => {
 		completed: false,
 	})
 
+	/**
+	 * Clicking a button instead of input
+	 */
 	const hiddenFileInput = useRef(null)
 	const handleClick = event => {
 		event.preventDefault()
 		hiddenFileInput.current.click()
 	}
 
-	const createTodo = e => {
-		e.preventDefault()
+	/**
+	 * Create a task
+	 * @param {React.MouseEvent<HTMLElement>} element
+	 */
+	const createTodo = element => {
+		element.preventDefault()
 		const newTodo = {
 			...tasks,
 			id: Date.now(),
@@ -122,10 +129,6 @@ export const TodoForm = ({ create, edit, editElement, setEditTask }) => {
 						{edit ? 'Редактировать' : 'Создать'}{' '}
 					</Button>
 				</div>
-
-				{/* <button onClick={createTodo}>
-					{edit ? 'Редактировать' : 'Создать'}{' '}
-				</button> */}
 			</form>
 		</div>
 	)
